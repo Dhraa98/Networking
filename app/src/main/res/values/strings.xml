@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Networking</string>
+    <string name="msg_connect_internet">Please connect to intenet</string>
+</resources>
