@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.networking.R
 
 import com.networking.retrofit.VideoListModel
@@ -44,11 +46,10 @@ class DataAdapter(
 
 
         holder.tvVideoName.text = videoList[position].videoName
-        val picasso = Picasso.get()
-        picasso
-            .load(videoList[position].video_image)
-            .tag(context)
-            .into(holder.ivThumb)
+        holder.ivThumb.load(videoList[position].video_image) {
+            crossfade(true)
+
+        }
 
 
     }
