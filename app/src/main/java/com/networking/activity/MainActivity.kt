@@ -9,10 +9,12 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.networking.R
 import com.networking.adapter.DataAdapter
+import com.networking.databinding.ActivityMainBinding
 import com.networking.retrofit.RetrofitClass
 import com.networking.retrofit.VideoListModel
 import retrofit2.Call
@@ -21,21 +23,20 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var rvdata: RecyclerView
-    lateinit var progress: ProgressBar
+
+    private lateinit var binding: ActivityMainBinding
     private lateinit var manager: GridLayoutManager
     private var adapter: DataAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initControls()
 
     }
 
     private fun initControls() {
-        rvdata = findViewById(R.id.rvVideos)
-        progress = findViewById(R.id.progress)
+
         if (isNetworkConnected()) {
             getDataCall()
         } else {
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getDataCall() {
-        progress.visibility = View.VISIBLE
+        binding.progress.visibility = View.VISIBLE
         val call: Call<VideoListModel> =
             RetrofitClass.getClient.getVideosApi("get", "", "")
 
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                         0
                     ).result.equals("0")
                 ) {
-                    progress.visibility = View.GONE
+                    binding.progress.visibility = View.GONE
                     val movies: List<VideoListModel.DataVideoList> =
                         response.body()!!.dataVideoList!!
 
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 } else {
-                    progress.visibility = View.GONE
+                    binding.progress.visibility = View.GONE
                     Toast.makeText(
                         this@MainActivity,
                         response!!.body()!!.message,
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<VideoListModel>?, t: Throwable?) {
-                progress.visibility = View.GONE
+                binding.progress.visibility = View.GONE
                 Toast.makeText(this@MainActivity, t!!.message, Toast.LENGTH_SHORT).show()
             }
         })
@@ -88,8 +89,8 @@ class MainActivity : AppCompatActivity() {
     private fun initDataList(videoList: List<VideoListModel.DataVideoList>) {
         adapter = DataAdapter(this, videoList)
         manager = GridLayoutManager(this, 2)
-        rvdata.adapter = adapter
-        rvdata.layoutManager = manager
+        binding.rvVideos.adapter = adapter
+        binding.rvVideos.layoutManager = manager
     }
 
     private fun isNetworkConnected(): Boolean {

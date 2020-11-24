@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 
-class VideoListModel : Serializable {
+ class VideoListModel : Serializable {
     @SerializedName("result")
     @Expose
     var result = 0
