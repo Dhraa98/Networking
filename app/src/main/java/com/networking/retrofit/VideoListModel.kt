@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 
- class VideoListModel : Serializable {
+class VideoListModel : Serializable {
     @SerializedName("result")
     @Expose
     var result = 0
@@ -22,6 +22,7 @@ import java.io.Serializable
     var dataVideoList: List<DataVideoList>? = null
 
     class DataVideoList : Serializable {
+      data class  DataVideoList (val name:String, val image:String)
         @SerializedName("result")
         @Expose
         var result: String? = null
@@ -41,9 +42,11 @@ import java.io.Serializable
         @SerializedName("video")
         @Expose
         var video: String? = null
+
         @SerializedName("video_id")
         @Expose
         var video_id: String? = null
+
         @SerializedName("favourite_id")
         @Expose
         var favourite_id: String? = null
@@ -51,6 +54,7 @@ import java.io.Serializable
         @SerializedName("video_image")
         @Expose
         var video_image: String? = null
+
         @SerializedName("isFavVideo")
         @Expose
         var isFavVideo: Boolean? = null

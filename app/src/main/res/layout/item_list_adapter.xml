@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.networking.retrofit.VideoListModel.DataVideoList" />
+    </data>
 
 
 
@@ -28,6 +33,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
+                android:text="@{viewModel.videoName}"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
                 android:textStyle="bold" />

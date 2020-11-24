@@ -1,12 +1,8 @@
 package com.networking.adapter
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -25,7 +21,7 @@ class DataAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemListAdapterBinding.inflate(inflater)
+        val binding = ItemListAdapterBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
 
     }
@@ -34,40 +30,26 @@ class DataAdapter(
         return videoList.size
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(videoList[position])
+
     class ViewHolder(val binding: ItemListAdapterBinding) : RecyclerView.ViewHolder(binding.root) {
-       /* fun bind(videoList: VideoListModel.DataVideoList) {
-            with(binding) {
-                tvVideoName.text = videoList.videoName
-                ivThumb.load(videoList.video_image) {
-                    crossfade(true)
+        fun bind(videoList: VideoListModel.DataVideoList) {
+            binding.viewModel = videoList
 
-                }
+            binding.ivThumb.load(videoList.video_image) {
+                crossfade(true)
+
             }
-
-            }*/
-       /* var tvVideoName: TextView
-        var ivThumb: ImageView
-
-        init {
-            tvVideoName = itemview.findViewById(R.id.tvVideoName)
-            ivThumb = itemview.findViewById(R.id.ivThumb)
-        }*/
-    }
-
-
-    override fun onBindViewHolder(holder: DataAdapter.ViewHolder, position: Int){
-        holder.binding.tvVideoName.text = videoList[position].videoName
-        holder.binding.ivThumb.load(videoList[position].video_image) {
-            crossfade(true)
+            binding.executePendingBindings()
 
         }
-    }
-
-
-
 
 
     }
+
+
+}
 
 
 
