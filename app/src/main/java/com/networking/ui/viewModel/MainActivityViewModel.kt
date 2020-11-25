@@ -2,12 +2,10 @@ package com.networking.viewModel
 
 import android.app.Application
 import android.content.Context
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-
 import com.networking.retrofit.RetrofitClass
 import com.networking.retrofit.VideoListModel
 import retrofit2.Call
@@ -16,11 +14,15 @@ import retrofit2.Response
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
-    private val mutableProgress = MediatorLiveData<Boolean>()
-    val progress: MediatorLiveData<Boolean> = mutableProgress
+   // var progress: MutableLiveData<Boolean> = MutableLiveData()
+
+    var progressVisibility : MutableLiveData<Boolean> = MutableLiveData(false)
 
      fun getDataCall(context: Context) {
-         mutableProgress.value = true
+      //   progress.value=true
+
+         progressVisibility.value = true
+
         val call: Call<VideoListModel> =
             RetrofitClass.getClient.getVideosApi("get", "", "")
 
@@ -37,26 +39,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 ) {
 
                     dataValue.value=response.body()
-                    mutableProgress.value = false
-                   /* val movies: List<VideoListModel.DataVideoList> =
-                        response.body()!!.dataVideoList!!
-
-                    initDataList(movies)*/
-
 
                 } else {
-                    mutableProgress.value = false
+                    //progress.value=false
                     Toast.makeText(
                         context,
                         response!!.body()!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
+                progressVisibility.value = false
             }
 
             override fun onFailure(call: Call<VideoListModel>?, t: Throwable?) {
-                mutableProgress.value = false
+                progressVisibility.value = false
                 Toast.makeText(context, t!!.message, Toast.LENGTH_SHORT).show()
             }
         })
