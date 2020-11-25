@@ -14,12 +14,12 @@ import retrofit2.Response
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
-   // var progress: MutableLiveData<Boolean> = MutableLiveData()
+
 
     var progressVisibility : MutableLiveData<Boolean> = MutableLiveData(false)
 
      fun getDataCall(context: Context) {
-      //   progress.value=true
+
 
          progressVisibility.value = true
 
@@ -41,7 +41,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     dataValue.value=response.body()
 
                 } else {
-                    //progress.value=false
+
                     Toast.makeText(
                         context,
                         response!!.body()!!.message,
