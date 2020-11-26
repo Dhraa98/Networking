@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var manager: GridLayoutManager
     private var adapter: DataAdapter? = null
 
-  //  val viewModel: MainActivityViewModel by viewModels()
-     private lateinit var viewModel: MainActivityViewModel
+    val viewModel: MainActivityViewModel by viewModels()
+    // private lateinit var viewModel: MainActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+       // viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         //viewModel = ViewModelProvider.NewInstanceFactory().create(MainActivityViewModel::class.java)
         /*  viewModel = ViewModelProvider(
               this,
@@ -49,14 +49,14 @@ class MainActivity : AppCompatActivity() {
 
         if (isNetworkConnected()) {
             viewModel.userData.observe(this, Observer {
-                if (it.result.equals("0")) {
+
 
                     val movies: List<VideoListModel.DataVideoList> =
                         it!!.dataVideoList!!
 
 
                     initDataList(movies)
-                }
+
 
             })
             // viewModel.getDataCall(this)

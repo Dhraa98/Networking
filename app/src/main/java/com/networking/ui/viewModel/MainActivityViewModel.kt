@@ -14,7 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-public class MainActivityViewModel (application: Application, userRepository: DataRepository) : AndroidViewModel(application) {
+public class MainActivityViewModel (application: Application) : AndroidViewModel(application) {
+    val userRepository=DataRepository()
     var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
     val userData : LiveData<VideoListModel> = userRepository.getDataCall(progressVisibility)
    /* var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()

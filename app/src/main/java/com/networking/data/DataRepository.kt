@@ -13,7 +13,7 @@ import retrofit2.Response
 class DataRepository {
 
     var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
-   // var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+
 
 
     fun getDataCall(progressVisibility: MutableLiveData<Boolean>): LiveData<VideoListModel> {
