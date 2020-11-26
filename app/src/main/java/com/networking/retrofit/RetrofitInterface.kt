@@ -3,6 +3,7 @@ package com.networking.retrofit
 
 
 
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -19,7 +20,7 @@ interface RetrofitInterface {
         @Query("action") action: String,
         @Query("cid") cId: String,
         @Query("language_id") language_id: String
-    ): Call<VideoListModel>
+    ): Observable<VideoListModel>
 
 
 }

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-       // viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        // viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         //viewModel = ViewModelProvider.NewInstanceFactory().create(MainActivityViewModel::class.java)
         /*  viewModel = ViewModelProvider(
               this,
@@ -54,9 +54,7 @@ class MainActivity : AppCompatActivity() {
                     val movies: List<VideoListModel.DataVideoList> =
                         it!!.dataVideoList!!
 
-
                     initDataList(movies)
-
 
             })
             // viewModel.getDataCall(this)
