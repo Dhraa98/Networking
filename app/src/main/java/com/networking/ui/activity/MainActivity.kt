@@ -50,11 +50,15 @@ class MainActivity : AppCompatActivity() {
         if (isNetworkConnected()) {
             viewModel.userData.observe(this, Observer {
 
-
+                if (it.dataVideoList!!.size > 0) {
                     val movies: List<VideoListModel.DataVideoList> =
                         it!!.dataVideoList!!
 
                     initDataList(movies)
+
+                } else {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
 
             })
             // viewModel.getDataCall(this)
