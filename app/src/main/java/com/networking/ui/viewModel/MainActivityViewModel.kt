@@ -4,24 +4,26 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.networking.data.DataRepository
 import com.networking.retrofit.RetrofitClass
 import com.networking.retrofit.VideoListModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
-    var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
+public class MainActivityViewModel (application: Application, userRepository: DataRepository) : AndroidViewModel(application) {
+    var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+    val userData : LiveData<VideoListModel> = userRepository.getDataCall(progressVisibility)
+   /* var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
+    var progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun getDataCall(context: Context) {
 
 
-    var progressVisibility : MutableLiveData<Boolean> = MutableLiveData(false)
-
-     fun getDataCall(context: Context) {
-
-
-         progressVisibility.value = true
+        progressVisibility.value = true
 
         val call: Call<VideoListModel> =
             RetrofitClass.getClient.getVideosApi("get", "", "")
@@ -38,7 +40,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                     ).result.equals("0")
                 ) {
 
-                    dataValue.value=response.body()
+                    dataValue.value = response.body()
 
                 } else {
 
@@ -57,4 +59,5 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         })
     }
+*/
 }

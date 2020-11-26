@@ -30,6 +30,6 @@
             android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"
             android:layout_centerInParent="true" />
 
-
+      <!-- // android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"-->
     </RelativeLayout>
 </layout>
