@@ -19,7 +19,7 @@ class DataRepository {
 
     fun getDataCall(progressVisibility: MutableLiveData<Boolean>): LiveData<VideoListModel> {
 
-
+        progressVisibility.value = true
         val cryptoObservable: Observable<VideoListModel> =
             RetrofitClass.getClient.getVideosApi("get", "", "")
         cryptoObservable.subscribeOn(Schedulers.io())
@@ -28,7 +28,7 @@ class DataRepository {
                 progressVisibility.value = false
                 dataValue.value = it
             }
-        progressVisibility.value = true
+
 
         return dataValue
     }
