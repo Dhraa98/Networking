@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,9 @@ import com.networking.adapter.DataAdapter
 import com.networking.databinding.ActivityMainBinding
 import com.networking.retrofit.VideoListModel
 import com.networking.viewModel.MainActivityViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,21 +51,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun initControls() {
 
+
         if (isNetworkConnected()) {
-            viewModel.userData.observe(this, Observer {
+            progress.visibility = View.VISIBLE
+            viewModel.data.observe(this, Observer {
+                if (it.isSuccessful) {
+                    progress.visibility = View.GONE
+                    if (it.body()!!.dataVideoList!!.size > 0) {
+                        val movies: List<VideoListModel.DataVideoList> =
+                            it.body()!!.dataVideoList!!
 
-                if (it.dataVideoList!!.size > 0) {
-                    val movies: List<VideoListModel.DataVideoList> =
-                        it!!.dataVideoList!!
-
-                    initDataList(movies)
-
+                        initDataList(movies)
+                    }
                 } else {
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, it.message(), Toast.LENGTH_LONG).show()
                 }
-
             })
-            // viewModel.getDataCall(this)
+
+
         } else {
             Toast.makeText(this, R.string.msg_connect_internet, Toast.LENGTH_LONG).show()
         }
@@ -69,17 +76,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /* private fun addObserver() {
-         viewModel.dataValue.observe(this, Observer {
-             val movies: List<VideoListModel.DataVideoList> =
-                 it!!.dataVideoList!!
-
-
-             initDataList(movies)
-         })
-
-     }
- */
 
     private fun initDataList(videoList: List<VideoListModel.DataVideoList>) {
         adapter = DataAdapter(this, videoList)

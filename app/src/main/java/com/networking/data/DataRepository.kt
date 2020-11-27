@@ -8,6 +8,11 @@ import com.networking.retrofit.VideoListModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,21 +21,8 @@ class DataRepository {
 
     var dataValue: MutableLiveData<VideoListModel> = MutableLiveData()
 
-
-    fun getDataCall(progressVisibility: MutableLiveData<Boolean>): LiveData<VideoListModel> {
-
-        progressVisibility.value = true
-        val cryptoObservable: Observable<VideoListModel> =
-            RetrofitClass.getClient.getVideosApi("get", "", "")
-        cryptoObservable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                progressVisibility.value = false
-                dataValue.value = it
-            }
+    suspend fun getUsers() = RetrofitClass.getClient.getVideosApi("get", "", "")
 
 
-        return dataValue
-    }
 
 }
